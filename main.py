@@ -3,6 +3,7 @@ from twisted.internet.defer import inlineCallbacks
 from autobahn.twisted.util import sleep
 import openai
 from alpha_mini_rug.speech_to_text import SpeechToText 
+import os
 
 audio_processor = SpeechToText() # create an instance of the class  # changing these values might not be necessary 
 audio_processor.silence_time = 0.5 # parameter set to indicate when to stop recording 
@@ -10,7 +11,7 @@ audio_processor.silence_threshold2 = 120 # any sound recorded below this value i
 audio_processor.logging = False # set to true if you want to see all the output 
 
 
-openai.api_key = OPENAI_API_KEY
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
 def request_to_chatgpt(prompt, history):
     response = openai.ChatCompletion.create(
